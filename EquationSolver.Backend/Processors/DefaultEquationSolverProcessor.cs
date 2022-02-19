@@ -3,9 +3,9 @@ using EquationSolver.Backend.Models;
 
 namespace EquationSolver.Backend.Processors;
 
-public class DefaultSolverProcessor : ISolutionProcessor
+public class DefaultEquationSolverProcessor : IEquationSolverProcessor
 {
-    public SolverResponse SolveEquation(EquationData input)
+    public SolverResponse Solve(EquationData input)
     {
         var discriminant = Math.Pow(input.B, 2) - 4 * input.A * input.C;
 

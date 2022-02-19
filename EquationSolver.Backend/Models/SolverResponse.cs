@@ -2,8 +2,8 @@
 
 public class SolverResponse
 {
-    public int RootsAmount { get; set; }
-    public List<double> Roots { get; set; }
+    public int RootsAmount { get; }
+    public List<double> Roots { get; init; }
 
     public SolverResponse(int rootsAmount)
     {
