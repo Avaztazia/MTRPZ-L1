@@ -35,11 +35,7 @@ internal static class Program
         var solverRequest = new EquationData(a, b, c);
         var solverResponse = _equationSolver.SolveEquation(solverRequest);
         
-        Console.WriteLine("There are " + solverResponse.RootsAmount);
-        foreach (var root in solverResponse.Roots)
-        {
-            Console.WriteLine("Root: " + root);
-        }
+        PrintResult(solverRequest, solverResponse);            
     }
 
     private static double ReadFromConsole(string requestText, string fallbackText)
@@ -64,6 +60,60 @@ internal static class Program
 
     private static void NonInteractiveMode(string filePath)
     {
-        throw new NotImplementedException();
+        var fileInfo = new FileInfo(filePath);
+        if (!fileInfo.Exists)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("File {0} is not exists", fileInfo.FullName);
+            Console.ResetColor();
+            
+            Environment.Exit(0);
+        }
+
+        var numbersAsString = File.ReadAllLines(fileInfo.FullName)[0];
+
+        var nums = numbersAsString.Split(' ');
+
+        var a = GetNumber(nums[0],
+            "Invalid parameter for A. It should be a number, but not a {0}");
+        var b = GetNumber(nums[1],
+            "Invalid parameter for A. It should be a number, but not a {0}");
+        var c = GetNumber(nums[2],
+            "Invalid parameter for A. It should be a number, but not a {0}");
+        
+        var solverRequest = new EquationData(a, b, c);
+        var solverResponse = _equationSolver.SolveEquation(solverRequest);
+        
+        PrintResult(solverRequest, solverResponse);
+    }
+
+    private static void PrintResult(EquationData inputData, SolverResponse solverResponse)
+    {
+        Console.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine($"({inputData.A})x^2 + ({inputData.B})x + ({inputData.C}) = 0");
+        Console.ResetColor();
+        
+        Console.WriteLine("There are " + solverResponse.RootsAmount);
+        foreach (var root in solverResponse.Roots)
+        {
+            Console.WriteLine("Root: " + root);
+        }
+    }
+
+    private static double GetNumber(string numAsString, string fallbackText)
+    {
+        var isParseSuccess = double.TryParse(numAsString, out var num);
+
+        if (isParseSuccess)
+        {
+            return num;
+        }
+
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(fallbackText, numAsString);
+        Console.ResetColor();
+
+        Environment.Exit(0);
+        return double.NaN;
     }
 }
