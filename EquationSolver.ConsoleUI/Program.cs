@@ -19,7 +19,5 @@ internal static class Program
         {
             applicationFlowProcessor.NonInteractiveMode(filePath);
         }
-
-        Console.ReadKey();
     }
 }
