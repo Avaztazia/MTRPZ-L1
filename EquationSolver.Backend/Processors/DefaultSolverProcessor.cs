@@ -21,8 +21,10 @@ public class DefaultSolverProcessor : ISolutionProcessor
     {
         return discriminant switch
         {
-            > 0 => new[] {(-input.B - discriminant) / 2 * input.A, (-input.B + discriminant) / 2 * input.A},
-            0 => new[] {-input.B / 2 * input.A},
+            > 0 => new[] {
+                (-input.B - Math.Sqrt(discriminant)) / (2 * input.A),
+                (-input.B + Math.Sqrt(discriminant)) / (2 * input.A)},
+            0 => new[] {-input.B / (2 * input.A)},
             _ => Array.Empty<double>()
         };
     }
