@@ -2,9 +2,9 @@
 
 public class EquationData
 {
-    public double A { get; set; }
-    public double B { get; set; }
-    public double C { get; set; }
+    public double A { get; }
+    public double B { get; }
+    public double C { get; }
 
     public EquationData(double a, double b, double c)
     {
