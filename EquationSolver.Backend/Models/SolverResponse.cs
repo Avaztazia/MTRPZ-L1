@@ -5,8 +5,9 @@ public class SolverResponse
     public int RootsAmount { get; set; }
     public List<double> Roots { get; set; }
 
-    public SolverResponse()
+    public SolverResponse(int rootsAmount)
     {
-        Roots = new List<double>(0);
+        RootsAmount = rootsAmount;
+        Roots = new List<double>(rootsAmount);
     }
 }
